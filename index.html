@@ -79,6 +79,18 @@
                         return wordCount;
                     }
 
+                    function compareURLs(url1, url2) {
+                        let parsedUrl1 = new URL(url1);
+                        let parsedUrl2 = new URL(url2);
+                        return (
+                            parsedUrl1.protocol === parsedUrl2.protocol &&
+                            parsedUrl1.hostname === parsedUrl2.hostname &&
+                            parsedUrl1.pathname === parsedUrl2.pathname &&
+                            parsedUrl1.search === parsedUrl2.search &&
+                            parsedUrl1.hash === parsedUrl2.hash
+                        );
+                    }
+
                     var DataLayer = {
                         "page_data": {
                             "page_domain": "mydomain.com",
@@ -116,6 +128,8 @@
                             "logged_in_status": "Logged out"
                         }
                     };
+
+                    DataLayer.article_data.original_article = compareURLs(window.location.href, DataLayer.article_data.canonical_url) ? "true" : "false";
 
                     // Is mobile
                     window.mobileCheck = function () {
